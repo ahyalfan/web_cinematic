@@ -1,0 +1,8 @@
+/* memasukan font dari google */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss/base";/* ini untuk reset semua komponen htmlnya */
+
+@import "tailwindcss/components";/* ini komponen kayak container grid dll */
+
+@import "tailwindcss/utilities";/* ini utility yg akan kita gunakan nanti */
