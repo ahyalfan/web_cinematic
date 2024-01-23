@@ -14,7 +14,7 @@ class MovieController extends Controller
         $apiKey = env('MOVIE_DB_API_KEY');
         
         // max data
-        $max = 3;
+        $maxBanner = 3;
 
         // hit api buat banner
         $bannerResponse = Http::get("$baseUrl/trending/movie/week",[
@@ -36,7 +36,7 @@ class MovieController extends Controller
                     // save ke bannerArray
                     \array_push($bannerArray,$item);
                     // cek jika data sudah lebih dari 3, maka langsung kembalikan
-                    if (count($bannerArray) == $max) {
+                    if (count($bannerArray) == $maxBanner) {
                         break;
                     }
                 }
@@ -47,7 +47,7 @@ class MovieController extends Controller
             'baseUrl' => $baseUrl,
             'imageBaseUrl' => $imageBaseUrl,
             'apiKey' => $apiKey,
-            'data' => $bannerArray,
+            'dataBanner' => $bannerArray,
         ]);
     }
 }

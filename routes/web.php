@@ -19,7 +19,7 @@ Route::view('/view','home',[
     'baseUrl' => 'test',
     'imageBaseUrl' => env('MOVIE_DB_IMAGE_BASE_URL'),
     'apiKey' => 'test',
-    'data' => [
+    'dataBanner' => [
         [
             'title' => 'jdudl',
         'overview' => 'pppp',
