@@ -36,7 +36,7 @@ class MovieController extends Controller
                     // save ke bannerArray
                     \array_push($bannerArray,$item);
                     // cek jika data sudah lebih dari 3, maka langsung kembalikan
-                    if (count($bannerArray) == 3) {
+                    if (count($bannerArray) == $max) {
                         break;
                     }
                 }
@@ -48,7 +48,6 @@ class MovieController extends Controller
             'imageBaseUrl' => $imageBaseUrl,
             'apiKey' => $apiKey,
             'data' => $bannerArray,
-            'data2' => $bannerResponse,
         ]);
     }
 }

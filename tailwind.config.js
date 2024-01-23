@@ -886,6 +886,7 @@ export default {
       72: '18rem',
       80: '20rem',
       96: '24rem',
+      '1/2': '50%'
     },
     stroke: ({ theme }) => ({
       none: 'none',

@@ -15,3 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[MovieController::class,'index']);
+Route::view('/view','home',[
+    'baseUrl' => 'test',
+    'imageBaseUrl' => env('MOVIE_DB_IMAGE_BASE_URL'),
+    'apiKey' => 'test',
+    'data' => [
+        [
+            'title' => 'jdudl',
+        'overview' => 'pppp',
+        'id' => 1,
+        'backdrop_path' => 'p.jpg'
+        ]
+    ],
+]);

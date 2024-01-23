@@ -1,4 +1,4 @@
-<nav class="w-full h-[5.8rem] bg-slate-50 dark:bg-black drop-shadow-lg dark:shadow-slate-300 dark:text-white">
+<nav class="w-full h-[5.3rem] bg-slate-50 dark:bg-black drop-shadow-lg dark:shadow-slate-300 dark:text-white">
     <ul class="h-full flex flex-row items-center">
        <li class="basis-1/4 pl-7">
           <a href="/movie" class="uppercase font-inter font-medium mx-5 hover:text-ahy-400 dark:hover:text-ahy-700 transition duration-200">
