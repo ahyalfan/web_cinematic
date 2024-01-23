@@ -27,4 +27,12 @@ Route::view('/view','home',[
         'backdrop_path' => 'p.jpg'
         ]
     ],
+    'dataSection' => [
+        [
+            'title' => 'jdudl',
+        'overview' => 'pppp',
+        'id' => 1,
+        'backdrop_path' => 'p.jpg'
+        ]
+    ]
 ]);

@@ -12,7 +12,7 @@
    <section class="flex flex-col w-full h-auto min-h-screen">
       {{-- navbar --}}
       @include('header.navbar')
-
+      {{-- banner --}}
       <main class="w-full h-[33rem] bg-slate-400">
          <div class="w-full h-full relative">
             {{-- data iisi --}}
@@ -60,28 +60,70 @@
             </div>
          </div>
       </main>
-      
-      <div class="mt-10 ml-20 text-xl font-inter font-semibold">
-         <h3 class="">Top 10 Movie</h3>
-      </div>
+      {{-- top movie --}}
+      <div class="mt-10 pl-20 font-inter w-full">
+         <h3 class="font-semibold text-xl leading-7">Top 10 Movie</h3>
+         <div class="flex flex-nowrap overflow-x-auto pb-5 font-inter mb-10">
+            @foreach ($dataSection as $data )
+            {{-- disini kita akan rubah format tanggalnya menjadi lebih menarik --}}
+            @php
+               $release = $data['release_date'];
+               $timestaps = strtotime($release); //disini kita rubah ke timestamps dulu
+               $newFormat = date('F j, o',$timestaps);
+            @endphp
 
-      <div class="flex flex-nowrap overflow mt-3 ml-20 pb-5 font-inter mb-96">
-         <a href="movie/id" class="group">
-            <div class="min-w-52 min-h-72 p-5 bg-white drop-shadow-lg rounded-2xl group-hover:drop-shadow-2xl felx flex-col transition duration-200 overflow-hidden">
-               <div class="overflow-hidden rounded-2xl">
-                  <img class="rounded-2xl h-[300px] w-[210px] object-cover group-hover:scale-125" src="https://via.placeholder.com/210x300" alt="">
+
+            <a href="movie/{{$data['id']}}" class="group mr-6 rounded-2xl transition duration-1000">
+               <div class="min-w-52 min-h-72 p-5 bg-white drop-shadow-lg rounded-2xl group-hover:drop-shadow-2xl felx flex-col overflow-hidden">
+                  <div class="overflow-hidden rounded-2xl">
+                     <img class="rounded-2xl h-[300px] w-[210px] object-cover group-hover:scale-125 transition duration-500" src="{{$imageBaseUrl}}/original/{{$data['poster_path']}}" alt="">
+                  </div>
+                  <h4 class="text-lg w-[200px] h-full text-wrap line-clamp-1 font-medium mt-4 mb-1 pl-[3%] group-hover:line-clamp-none">{{$data['title']}}</h4>
+                  <h6 class="text-sm font-normal pl-[3%]">{{ $newFormat }}</h6>
+                  <div class="flex flex-row pl-[3%] my-2">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-hover:fill-ahy-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
+                      </svg>
+                      <p class="ml-2">{{$data['vote_average']}}%</p>
+                  </div>
                </div>
-               <h4 class="text-lg w-[200px] h-full text-wrap line-clamp-1 font-medium mt-4 mb-1 pl-[3%] group-hover:line-clamp-none">nama</h4>
-               <h6 class="text-sm font-normal pl-[3%]">2000</h6>
-               <div class="flex flex-row pl-[3%] my-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-hover:fill-ahy-400">
-                     <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
-                   </svg>
-                   <p class="ml-2">rating</p>
-               </div>
-            </div>
-         </a>
+            </a>
+            @endforeach
+         </div>
+         
       </div>
+      {{-- top tv --}}
+      <div class="mt-1 pl-20 font-inter w-full">
+         <h3 class="font-semibold text-xl leading-7">Top 10 TV SHOWS</h3>
+         <div class="flex flex-nowrap overflow-x-auto pb-5 font-inter mb-10">
+            @foreach ($dataSectionTv as $data )
+            {{-- disini kita akan rubah format tanggalnya menjadi lebih menarik --}}
+            @php
+               $release = $data['first_air_date'];
+               $timestaps = strtotime($release); //disini kita rubah ke timestamps dulu
+               $newFormat = date('F j, o',$timestaps);
+            @endphp
+
+
+            <a href="movie/{{$data['id']}}" class="group mr-6 rounded-2xl transition duration-1000">
+               <div class="min-w-52 min-h-72 p-5 bg-white drop-shadow-lg rounded-2xl group-hover:drop-shadow-2xl felx flex-col overflow-hidden">
+                  <div class="overflow-hidden rounded-2xl">
+                     <img class="rounded-2xl h-[300px] w-[210px] object-cover group-hover:scale-125 transition duration-500" src="{{$imageBaseUrl}}/original/{{$data['poster_path']}}" alt="">
+                  </div>
+                  <h4 class="text-lg w-[200px] h-full text-wrap line-clamp-1 font-medium mt-4 mb-1 pl-[3%] group-hover:line-clamp-none">{{$data['name']}}</h4>
+                  <h6 class="text-sm font-normal pl-[3%]">{{ $newFormat }}</h6>
+                  <div class="flex flex-row pl-[3%] my-2">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-hover:fill-ahy-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
+                      </svg>
+                      <p class="ml-2">{{$data['vote_average']}}%</p>
+                  </div>
+               </div>
+            </a>
+            @endforeach
+         </div>   
+      </div>
+      
    </section>
 
    <script>
