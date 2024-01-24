@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[MovieController::class,'index']);
+Route::get('/movies',[MovieController::class,'getAllMovie']);
+
+// test
 Route::view('/view','home',[
     'baseUrl' => 'test',
     'imageBaseUrl' => env('MOVIE_DB_IMAGE_BASE_URL'),

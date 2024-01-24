@@ -1,11 +1,11 @@
-<nav class="w-full h-[5.3rem] bg-slate-50 dark:bg-black drop-shadow-lg dark:shadow-slate-300 dark:text-white">
+<nav class="w-full h-[5.3rem] md:h-[5rem] bg-slate-50 dark:bg-black drop-shadow-lg dark:shadow-slate-300 dark:text-white">
     <ul class="h-full flex flex-row items-center">
        <li class="basis-1/4 pl-2 md:pl-7">
-          <a href="/movie" class="uppercase font-inter text-small md:text-lg md:font-medium md:mx-5 hover:text-ahy-400 dark:hover:text-ahy-700 transition duration-200">
+          <a href="/tvshow" class="uppercase font-inter text-small md:text-lg md:font-medium md:mx-5 hover:text-ahy-400 dark:hover:text-ahy-700 transition duration-200">
             Tv Show
           </a>
-          <a href="/tvShow" class="uppercase font-inter text-small md:text-lg md:font-medium md:mx-5 hover:text-ahy-400 dark:hover:text-ahy-700 transition duration-200">
-            Movie
+          <a href="/movies" class="uppercase font-inter text-small md:text-lg md:font-medium md:mx-5 hover:text-ahy-400 dark:hover:text-ahy-700 transition duration-200">
+            Movies
           </a>
        </li>
        <li class="basis-1/2 text-center">
