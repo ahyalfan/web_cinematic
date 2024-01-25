@@ -2,13 +2,13 @@
     <div class="basis-10/12 flex flex-row">
        <div class="flex-col flex basis-2/4 justify-start items-center">
           <span class="flex flex-row md:justify-end w-full pl-2">
-             <h1 class="text-2xl md:text-4xl basis-4/5 font-bold">CINEMATION</h1>
+             <h1 class="text-2xl md:text-4xl basis-4/5 font-bold">ScreenV</h1>
           </span>
           <span class="flex flex-row md:justify-end pl-2 mt-2">
              <p class="basis-4/5 text-lg md:text-xl">Kami menyediakan review film dan TV Series yang bisa jadi acuan tontonanmu #BetterMovieBetterLife</p>
           </span>
           <span class="flex flex-row md:justify-end pl-2 mt-2 w-full">               
-             <h6 class="basis-4/5 text-lg md:text-xl">&copy;2024 CINEMATION</h6>
+             <h6 class="basis-4/5 text-lg md:text-xl">&copy;2024 ScreenV</h6>
           </span>
        </div>
        <div class="flex-col flex basis-1/4 justify-start items-center">

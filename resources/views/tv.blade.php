@@ -33,23 +33,23 @@
             </div>
         </section>
         {{-- content --}}
-        <section class="grid w-auto md:pl-20 lg:pl-28 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-5 gap-7 md:gap-5" id="dataWrapper">
-            @foreach ($moviesPage1 as $data)
+        <section class="grid w-auto md:pl-20 lg:pl-28 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-5 gap-2 md:gap-5" id="dataWrapper">
+            @foreach ($tvPage as $data)
             {{-- disini kita akan rubah format tanggalnya menjadi lebih menarik --}}
             @php
-                $release = $data['release_date'];
+                $release = $data['first_air_date'];
                 $timestaps = strtotime($release); //disini kita rubah ke timestamps dulu
                 $newFormat = date('F j, o',$timestaps);
                 $img = $imageBaseUrl.'/original/'.$data['poster_path'];
-                $title = $data['title'];
+                $title = $data['original_name'];
             @endphp
-            <a href="movie/{{$data['id']}}" class="group md:mr-6 rounded-2xl transition duration-1000">
-                <div class="min-w-24 min-h-52 md:min-w-52 md:min-h-72 md:p-5 bg-white drop-shadow-lg rounded-2xl group-hover:drop-shadow-2xl flex flex-col overflow-hidden pl-2">
+            <a href="tv/{{$data['id']}}" class="group md:mr-6 rounded-2xl transition duration-1000">
+                <div class="min-w-24 min-h-52 md:min-w-52 md:min-h-72 md:p-5 bg-white drop-shadow-lg rounded-2xl group-hover:drop-shadow-2xl felx flex-col overflow-hidden pl-2">
                    <div class="overflow-hidden ml-[7%] md:w-auto rounded-2xl">
-                      <img class="rounded-2xl h-[200px] w-[200] sm:w-[180px] md:h-[300px] md:w-[210px] object-cover group-hover:scale-125 transition duration-500" src="{{$img}}" alt="">
+                      <img class="rounded-2xl h-[200px] w-[164] sm:w-[180px] md:h-[300px] md:w-[210px] object-cover group-hover:scale-125 transition duration-500" src="{{$img}}" alt="">
                    </div>
                    <h4 class="text-lg w-[130px] md:w-[200px] h-full text-wrap line-clamp-1 font-medium mt-4 mb-1 pl-[7%] group-hover:line-clamp-none">{{ $title }}</h4>
-                   <h6 class="text-sm font-normal pl-[7%] w-[150px] md:w-[200px]">{{ $newFormat }}</h6>
+                   <h6 class="text-sm font-normal pl-[7%] w-[130px] md:w-[200px]">{{ $newFormat }}</h6>
                    <div class="flex flex-row pl-[7%] my-2 w-[130px] md:w-[200px]">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-hover:fill-ahy-400">
                          <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
@@ -70,7 +70,7 @@
         </section>
         {{-- errorNotifikasi --}}
         <section class="fixed text-center top-6 right-6 bg-red-600 w-72 min-h-5 rounded-lg p-3" id="notifikasi">
-            <span id="notifikasiMessege" class="text-white">a</span>
+            <span id="notifikasiMessege" class="text-white"></span>
         </section>
         {{-- loadMore --}}
         <section class="flex justify-center my-10" id="loadMore">
@@ -99,7 +99,7 @@
             // kita akan pakai ajax karena load more akan dijadikan asc realtime
             $.ajax({
                 type: "get",
-                url: `${baseUrl}/discover/movie?api_key=${apiKey}&page=${++page}&sort_by=${sortBy}&vote_count.gte=${minimalVote}`,
+                url: `${baseUrl}/discover/tv?api_key=${apiKey}&page=${++page}&sort_by=${sortBy}&vote_count.gte=${minimalVote}`,
                 dataType: "json",
                 beforeSend:function(){
                     $("#loadingIcon").show();
@@ -111,26 +111,26 @@
                     if (response.results) {
                         var html= [];
                         response.results.forEach(item => {
-                            let releaseDate = item.release_date;
+                            let releaseDate = item.first_air_date;
                             let date = new Date(releaseDate);
-                            let movieDate = date.toDateString();                
-                            let movieTitle = item.title;
-                            let movieId = item.id;
-                            let movieImage = `${imageBaseUrl}/original/${item.poster_path}`;
-                            let movieRating = item.vote_average *10;
+                            let tvDate = date.toDateString();                
+                            let tvTitle = item.original_name;
+                            let tvId = item.id;
+                            let tvImage = `${imageBaseUrl}/original/${item.poster_path}`;
+                            let tvRating = item.vote_average *10;
                             html.push(`
-                                <a href="movie/${movieId}" class="group md:mr-6 rounded-2xl transition duration-1000">
+                                <a href="movie/${tvId}" class="group md:mr-6 rounded-2xl transition duration-1000">
                                 <div class="min-w-24 min-h-52 md:min-w-52 md:min-h-72 md:p-5 bg-white drop-shadow-lg rounded-2xl group-hover:drop-shadow-2xl felx flex-col overflow-hidden">
                                 <div class="overflow-hidden ml-[7%] md:w-auto rounded-2xl">
-                                    <img class="rounded-2xl h-[200px] w-[164] sm:w-[180px] md:h-[300px] md:w-[210px] object-cover group-hover:scale-125 transition duration-500" src="${movieImage}" alt="">
+                                    <img class="rounded-2xl h-[200px] w-[164] sm:w-[180px] md:h-[300px] md:w-[210px] object-cover group-hover:scale-125 transition duration-500" src="${tvImage}" alt="${tvTitle}">
                                 </div>
-                                <h4 class="text-lg w-[130px] md:w-[200px] h-full text-wrap line-clamp-1 font-medium mt-4 mb-1 pl-[7%] group-hover:line-clamp-none">${movieTitle}</h4>
-                                <h6 class="text-sm font-normal pl-[7%] w-[130px] md:w-[200px]">${ movieDate }</h6>
+                                <h4 class="text-lg w-[130px] md:w-[200px] h-full text-wrap line-clamp-1 font-medium mt-4 mb-1 pl-[7%] group-hover:line-clamp-none">${tvTitle}</h4>
+                                <h6 class="text-sm font-normal pl-[7%] w-[130px] md:w-[200px]">${ tvDate }</h6>
                                 <div class="flex flex-row pl-[7%] my-2 w-[130px] md:w-[200px]">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-hover:fill-ahy-400">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
                                     </svg>
-                                    <p class="md:ml-2">${movieRating}%</p>
+                                    <p class="md:ml-2">${tvRating}%</p>
                                 </div>
                                 </div>
                                 </a>
