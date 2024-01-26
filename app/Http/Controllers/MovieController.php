@@ -82,7 +82,7 @@ class MovieController extends Controller
             // artinya jika responya seccess maka kita akan masukan data api ke result
             // $detailArray[] = $response->object()->results; ini cara pertama pengambilan data results dari api
             $result = $response->json(); // ini cara kedua            
-        }
+        }else($result=[]);
         return $result;
     }
 
@@ -215,20 +215,31 @@ class MovieController extends Controller
                 $haur = floor($runtime / 60);
                 $minute = ($runtime % 60);
                 $duration = $haur."h ".$minute.'m';
-            }else{$runtime = "";}
+            }else{$duration = "";}
             if($dataMovie['status']){
                 $status = $dataMovie['status'];
             }else{$status = "";}
             if($dataMovie['vote_average']){
                 $ratingOld = $dataMovie['vote_average'] * 10;
                 $rating = floor($dataMovie['vote_average'] * 10);
-            }else{$rating = '';}
+            }else{$rating = 0;}
             $date = $dataMovie['release_date'];
             $timestamps = \strtotime($date);
             $dateString = \date('m/j/o',$timestamps);
             if($dataMovie['genres']){
                 $genres = $dataMovie['genres'];
             }else{$genres = [];}
+            // videos
+            $trailer = $dataMovie['videos']['results'];
+            if(isset($trailer)){
+                foreach($trailer as $tra){
+                    if($tra['type'] == "Trailer"){                        
+                        $videoId = $tra['key'];
+                        break;
+                    }
+                }
+                if(!isset($trailer)){$videoId = "";}
+            }else{$videoId = '';}
         }else{$dataMovie = [];}
 
         // buat data lingkarannya
@@ -237,6 +248,8 @@ class MovieController extends Controller
         $lingkaran2 = 2 * 3.14 * 23; //kita buat di 16px untuk ponsel
         $ratingLingkaran2 = $lingkaran2 - ($rating/100 * $lingkaran2);
 
+        // cek
+        if(!isset($videoId)){$videoId = 1;}
         return \view('movie_by_id',[
             'baseUrl' => $baseUrl,
             'imageBaseUrl' => $imageBaseUrl,
@@ -255,6 +268,7 @@ class MovieController extends Controller
             'ratingLingkaran2' => $ratingLingkaran2,
             'release' => $dateString,
             'genres' => $genres,
+            'video' => $videoId,
         ]);
     }
 
@@ -276,8 +290,10 @@ class MovieController extends Controller
                 $overview = $dataTv['overview'];
             }else{$overview = $dataTv['tagline'];}
             if($dataTv['episode_run_time']){
-                $episode_run_time = $dataTv['episode_run_time'];
-            }else{$episode_run_time = "";}
+                $episode_run_time = $dataTv['episode_run_time'][0];
+                $perEpisode = $episode_run_time%60;
+                $duration = $perEpisode."m / episode";
+            }else{$duration = "";}
             if($dataTv['status']){
                 $status = $dataTv['status'];
             }else{$status = "";}
@@ -290,9 +306,36 @@ class MovieController extends Controller
             if($dataTv['genres']){
                 $genres = $dataTv['genres'];
             }else{$genres = [];}
+            // rating
+            if($dataTv['vote_average']){
+                $ratingOld = $dataTv['vote_average'] * 10;                            
+                $rating = floor($ratingOld);
+            }else{$rating = 0;}
+            // videos
+            $trailer = $dataTv['videos']['results'];
+            $videoId = '';
+            if(isset($trailer)){
+                foreach($trailer as $tra){
+                    if($tra['type'] == "Trailer"){                        
+                        $videoId = $tra['key'];
+                        break;
+                    }else{$videoId = '';}
+                }
+            }else{$videoId = '';}
+            // tagline
+            $tagline = $dataTv['tagline'];            
         }else{$dataTv = [];}
 
-        return \view('tv_by_id',[
+        // buat data lingkarannya
+        $lingkaran = 2 * 3.14 * 32; //kita buat di 32px
+        $ratingLingkaran = $lingkaran - ($rating/100 * $lingkaran);
+        $lingkaran2 = 2 * 3.14 * 23; //kita buat di 16px untuk ponsel
+        $ratingLingkaran2 = $lingkaran2 - ($rating/100 * $lingkaran2);
+
+        // cek video
+        if(!isset($videoId)){$videoId = 1;}
+
+        return \view('movie_by_id',[
             'baseUrl' => $baseUrl,
             'imageBaseUrl' => $imageBaseUrl,
             'apiKey' => $apiKey,
@@ -302,8 +345,16 @@ class MovieController extends Controller
             'overview' => $overview,
             'status' => $status,
             'seasons' => $seasons,
-            'dateString' => $dateString,
+            'release' => $dateString,
             'genres' => $genres,
+            'tagline' => $tagline,
+            'lingkaran' => $lingkaran,
+            'lingkaran2' => $lingkaran2,
+            'ratingLingkaran' => $ratingLingkaran,
+            'ratingLingkaran2' => $ratingLingkaran2,
+            'rating' => $rating,
+            'video' => $videoId,
+            'duration' => $duration,
         ]);
     }
 }

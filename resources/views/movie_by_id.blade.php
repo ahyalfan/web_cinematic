@@ -12,7 +12,7 @@
 
     {{-- kita akan simpan variabelnya dahulu yg sudah kita ambil di api --}}
     @php
-        $backdrop_path = $dataMovie ? $imageBaseUrl."/original/".$img:"/movie";        
+        $backdrop_path = $imageBaseUrl."/original/".$img;        
     @endphp
 
 
@@ -106,25 +106,58 @@
             </span>   
             {{-- date --}}
             <span class="flex justify-center items-center mx-4 text-sm md:text-xl">
-               <h6 class="font-inter text-sm md:text-xl text-white bg-transparent rounded-md border h-auto border-white p-2 mr-4">{{ $release }}</h6>    
+               <h6 class="font-inter text-sm md:text-xl text-white bg-transparent rounded-md border h-auto border-white p-2">{{ $release }}</h6>    
             </span>      
             {{-- duration --}}
+            @if($duration != "")
             <span class="flex justify-center items-center text-sm md:text-xl">
                <h6 class="font-inter text-sm md:text-xl text-white bg-transparent rounded-md border h-auto border-white p-2 mr-4">{{ $duration }}</h6>    
-            </span>      
+            </span>
+            @endif
+                  
          </div>
          
          {{-- play trailer --}}
+         @if ($video != "")
          <div class="flex items-center mt-3">
-            <button class="group font-semibold flex items-center justify-center hover:text-black bg-ahy-400 dark:hover:text-slate-800 border rounded-xl border-white min-h-12 md:min-h-14 min-w-28 md:min-w-32" onclick="showTrailer(true)">
-               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 scale-75 group-hover:fill-black">
+            <button class="group md:text-lg font-semibold flex items-center justify-center hover:text-black bg-ahy-400 dark:hover:text-slate-800 rounded-xl min-h-12 md:min-h-12 min-w-28 md:min-w-36" onclick="showTrailer(true)">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 scale-75 fill-white group-hover:fill-black">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
                </svg>                      
                Play Trailer
             </button>
          </div>
+         @endif
+         
         </section>
         
+        {{-- trailer --}}
+        <section id="trailer" class="absolute z-10 bg-black w-full h-screen flex flex-col pb-20 px-20">
+         <button class="ml-auto mt-24 group" onclick="showTrailer(false)">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white group-hover:text-ahy-400">
+               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+             </svg>             
+         </button>
+
+         {{-- trailer youteube --}}
+         <iframe src="https://www.youtube.com/embed/{{$video}}?enablejsapi=1" frameborder="0" id="youtubeId" class="w-full h-full" title="{{$title}}"></iframe>
+        </section>
     </section>
+    
+    <script>
+      $("#trailer").hide();
+
+      function showTrailer(bool) { 
+         if(bool == true ){
+            $("#trailer").show();
+         }else{
+            // stop youtubenya, karena tanpa ini walaupun kita close youtube tetap berjalan
+            $("#youtubeId")[0].contentWindow.postMessage('{"event":"command","func":"'+'stopVideo'+'","args":""}','*');
+
+            // sembunyikan
+            $("#trailer").hide();
+         }
+      }
+    </script>
 </body>
 </html>

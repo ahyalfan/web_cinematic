@@ -20,7 +20,7 @@ Route::get('/tvshow',[MovieController::class,'getAllTv']);
 Route::get('/search',[MovieController::class,'search']);
 
 Route::get('/movie/{id}',[MovieController::class,'getMovieById']);
-Route::get('/tvshow/{id}',[MovieController::class,'getTvById']);
+Route::get('/tv/{id}',[MovieController::class,'getTvById']);
 
 // test
 Route::view('/view','home',[
