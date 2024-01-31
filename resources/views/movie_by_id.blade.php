@@ -5,7 +5,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>ScreenV | Movie and TV preview</title>
-   @vite('resources/css/app.css')
+   {{-- @vite('resources/css/app.css') --}}
+   <link rel="stylesheet" href="/build/assets/app-HiGiQ-D5.css">
    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -133,7 +134,7 @@
         
         {{-- trailer --}}
         <section id="trailer" class="absolute z-10 bg-black w-full h-screen flex flex-col pb-20 px-20">
-         <button class="ml-auto mt-24 group" onclick="showTrailer(false)">
+         <button class="ml-auto mt-24 group bg-purple-900" onclick="showTrailer(false)">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white group-hover:text-ahy-400">
                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
              </svg>             

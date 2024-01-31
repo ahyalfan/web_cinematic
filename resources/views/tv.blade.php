@@ -24,6 +24,8 @@
                     <option value="popularity.asc" class="hover:bg-ahy-400">Popularity (asc)</option>
                     <option value="vote_average.desc" class="hover:bg-ahy-400">Top Rate (desc)</option>
                     <option value="vote_average.asc" class="hover:bg-ahy-400">Top Rate (asc)</option>
+                    <option value="primary_release_date.desc" class="hover:bg-ahy-400">New Release</option>
+                    <option value="primary_release_date.asc" class="hover:bg-ahy-400">Old Release Date</option>
                 </select>
                 <div class="pointer-events-auto absolute right-2 inset-y-0 flex items-center group-active:rotate-180">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -119,7 +121,7 @@
                             let tvImage = `${imageBaseUrl}/original/${item.poster_path}`;
                             let tvRating = item.vote_average *10;
                             html.push(`
-                                <a href="movie/${tvId}" class="group md:mr-6 rounded-2xl transition duration-1000">
+                                <a href="tv/${tvId}" class="group md:mr-6 rounded-2xl transition duration-1000">
                                 <div class="min-w-24 min-h-52 md:min-w-52 md:min-h-72 md:p-5 bg-white drop-shadow-lg rounded-2xl group-hover:drop-shadow-2xl felx flex-col overflow-hidden">
                                 <div class="overflow-hidden ml-[7%] md:w-auto rounded-2xl">
                                     <img class="rounded-2xl h-[200px] w-[164] sm:w-[180px] md:h-[300px] md:w-[210px] object-cover group-hover:scale-125 transition duration-500" src="${tvImage}" alt="${tvTitle}">

@@ -24,6 +24,8 @@
                     <option value="popularity.asc" class="hover:bg-ahy-400">Popularity (asc)</option>
                     <option value="vote_average.desc" class="hover:bg-ahy-400">Top Rate (desc)</option>
                     <option value="vote_average.asc" class="hover:bg-ahy-400">Top Rate (asc)</option>
+                    <option value="primary_release_date.desc" class="hover:bg-ahy-400">New Release</option>
+                    <option value="primary_release_date.asc" class="hover:bg-ahy-400">Old Release</option>
                 </select>
                 <div class="pointer-events-auto absolute right-2 inset-y-0 flex items-center group-active:rotate-180">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">

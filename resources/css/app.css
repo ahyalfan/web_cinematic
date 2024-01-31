@@ -6,3 +6,6 @@
 @import "tailwindcss/components";/* ini komponen kayak container grid dll */
 
 @import "tailwindcss/utilities";/* ini utility yg akan kita gunakan nanti */
+
+
+/* ketika mau di upload ke web maka kita perlu lakukan npm run build */

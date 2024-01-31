@@ -152,7 +152,7 @@ class MovieController extends Controller
             'apiKey' => $apiKey,
             'sortBy'=>'popularity.desc',
             'page'=>1,
-            'minimalVote'=>100,
+            'minimalVote'=>10,
 
             // data movie page 1
             'moviesPage1'=>$dataMovies,
@@ -169,7 +169,7 @@ class MovieController extends Controller
             'apiKey' => $apiKey,
             'sortBy'=>'popularity.desc',
             'page'=>1,
-            'minimalVote'=>100,
+            'minimalVote'=>10,
 
             // data movie page 1
             'tvPage'=>$dataTV,
